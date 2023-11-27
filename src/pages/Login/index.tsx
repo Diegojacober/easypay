@@ -3,12 +3,24 @@ import React, { useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Div, Text, Image, Input, Icon, Button } from "react-native-magnus";
 import { Keyboard, TouchableOpacity, TouchableWithoutFeedback } from "react-native";
+import Toast from "react-native-toast-message";
+import useAuthStore from "../../stores/useAuthStore";
 
 export default function Login() {
   const navigation = useNavigation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [signIn] = useAuthStore(
+    (state) => [
+      state.signIn,
+    ]
+  );
+
+  const handleLogin = async () => {
+      signIn(email, password)
+  }
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -60,7 +72,7 @@ export default function Login() {
               mb={20}
             />
 
-            <Button mt="lg" bg="lightblue" borderless>
+            <Button mt="lg" bg="lightblue" borderless onPress={handleLogin}>
               <Text fontSize={16} color="white" w={"78%"} textAlign="center">
                 Login
               </Text>
