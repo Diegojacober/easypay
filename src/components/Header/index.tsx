@@ -20,7 +20,7 @@ function Header() {
         <Div mt={5} mb={18} flexDir='row' alignItems='center' justifyContent='space-between'>
             <Div flexDir='row' alignItems='center' >
                 <Image w={50} h={50} rounded="circle" source={{
-                    uri: avatarUrl === null ? `https://ui-avatars.com/api/?background=random&name=${user?.first_name}${user?.last_name}` : avatarUrl
+                    uri: avatarUrl === null ? `https://ui-avatars.com/api/?background=random&name=${user?.first_name} ${user?.last_name}` : avatarUrl
                 }} />
                 <Div ml={8}>
                     <Text color='gray400' mb={2} fontSize={14}>{`${user?.first_name} ${user?.last_name}`}</Text>
