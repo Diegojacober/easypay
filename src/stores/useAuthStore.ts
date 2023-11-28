@@ -2,46 +2,8 @@ import api from "../services/api";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import Toast from "react-native-toast-message";
-import localforage from "localforage";
-
-type User = {
-    email: string,
-    first_name: string,
-    last_name: string,
-    cpf: string,
-    url_image: string
-}
-
-interface UserStore {
-    user: User | null;
-    accessToken: string;
-    refreshToken: string;
-    isAuthenticated: boolean;
-    account: Account | null;
-    getUser: (token: string) => void;
-    signIn: (email: string, password: string) => void;
-    signUp: (email: string, password: string, firstName: string, lastName: string, cpf: string) => void;
-    logout: () => void;
-};
-
-interface AuthApiResponse {
-    access: string;
-    refresh: string;
-}
-
-interface SignUpResponse {
-    email: string,
-    first_name: string,
-    last_name: string,
-    cpf: string,
-    url_image: string
-}
-
-interface Account {
-    id: number,
-    agencia: string,
-    numero: string
-}
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Account, AuthApiResponse, SignUpResponse, User, UserStore } from "./types";
 
 const useAuthStore = create(
     persist<UserStore>(
@@ -50,23 +12,30 @@ const useAuthStore = create(
             accessToken: '',
             refreshToken: '',
             account: null,
+            loading: false,
             isAuthenticated: false,
             signIn: async (email: string, password: string) => {
+                set((state) => ({
+                    loading: true
+                }));
                 await api.post<AuthApiResponse>("/token/", {
                     email,
                     password
                 }).then((resp) => {
-                    console.log(resp.data)
                     set((state) => ({
                         accessToken: resp.data.access,
                         refreshToken: resp.data.refresh,
-                        isAuthenticated: true
+                        isAuthenticated: true,
+                        loading: false,
                     }));
                     Toast.show({
                         type: 'success',
                         text1: 'Seja bem-vindo(a)',
                     });
                 }).catch((error) => {
+                    set((state) => ({
+                        loading: false,
+                    }));
                     if (error.response.status == 401 || error.response.status == 500) {
                         if (error.response.data.detail) {
                             Toast.show({
@@ -110,7 +79,7 @@ const useAuthStore = create(
                                 })
                             } else {
                                 set((state) => ({
-                                    account: resp.data[0]
+                                    account: resp.data[0],
                                 }))
                             }
                         }).catch(err => { })
@@ -137,10 +106,13 @@ const useAuthStore = create(
                     refreshToken: '',
                     user: null,
                     isAuthenticated: false,
+                    loading: false
                 }))
             },
             signUp: async (email: string, password: string, firstName: string, lastName: string, cpf: string) => {
-
+                set((state) => ({
+                    loading: true,
+                }));
                 await api.post<SignUpResponse>("/user/create/", {
                     email,
                     password,
@@ -152,6 +124,9 @@ const useAuthStore = create(
                         type: 'success',
                         text1: "Cadastro realizado!",
                     });
+                    set((state) => ({
+                        loading: false,
+                    }));
                 }).catch((error) => {
                     const resp = error.response
                     if (error.code == "ERR_BAD_REQUEST") {
@@ -163,11 +138,14 @@ const useAuthStore = create(
                             });
                         }
                     }
+                    set((state) => ({
+                        loading: false,
+                    }));
                 })
             },
         }), {
         name: 'user-storage',
-        storage: createJSONStorage(() => localforage as never),
+        storage: createJSONStorage(() => AsyncStorage),
     }
     ));
 
