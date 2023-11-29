@@ -21,7 +21,7 @@ function AppRoutes() {
       tabBarStyle: {
         backgroundColor: '#214168',
         borderTopWidth: 0,
-        marginBottom: 15
+        marginBottom: '0'
       },
       freezeOnBlur: true,
     }}>
