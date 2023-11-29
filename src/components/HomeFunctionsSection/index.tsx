@@ -1,6 +1,6 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { Button, Div, Icon, Text } from "react-native-magnus";
+import { Div, Icon, Text } from "react-native-magnus";
 
 function HomeFunctionsSection() {
   return (

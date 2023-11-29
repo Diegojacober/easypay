@@ -3,7 +3,6 @@ import React, { useState, useContext } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Div, Text, Image, Input, Icon, Button } from "react-native-magnus";
 import { Keyboard, TouchableOpacity, TouchableWithoutFeedback } from "react-native";
-import Toast from "react-native-toast-message";
 import useAuthStore from "../../stores/useAuthStore";
 
 export default function Login() {

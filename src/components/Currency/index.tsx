@@ -7,13 +7,13 @@ import Toast from "react-native-toast-message";
 import api from "../../services/api";
 import { ActivityIndicator } from "react-native-paper";
 
-interface ICurrentComponentProps {
+interface ICurrencyComponentProps {
   numeroConta: string;
   idConta: number;
   saldo: number;
 }
 
-function Current({ numeroConta, idConta, saldo }: ICurrentComponentProps) {
+function Currency({ numeroConta, idConta, saldo }: ICurrencyComponentProps) {
   const [quantity, setQuantity] = useState<string>("");
   const [visible, setVisible] = useState<boolean>(false);
   const snackbarRef = createRef();
@@ -126,4 +126,4 @@ function Current({ numeroConta, idConta, saldo }: ICurrentComponentProps) {
   );
 }
 
-export default Current;
+export default Currency;
