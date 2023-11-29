@@ -5,6 +5,7 @@ import Current from "../../components/Current";
 import Header from "../../components/Header";
 import useAuthStore from "../../stores/useAuthStore";
 import useFetchAccount from "../../components/queries/account";
+import HomeFunctionsSection from "../../components/HomeFunctionsSection";
 
 export default function Home() {
 
@@ -45,7 +46,8 @@ export default function Home() {
     <Div flex={1} pt={50} bg="darkblue" alignItems="center">
       <Div w={"95%"}>
         <Header />
-        <Current numeroConta={account?.numero} idConta={account?.id} saldo={data.saldo}/>
+        <Current numeroConta={account?.numero} idConta={account?.id} saldo={data?.saldo}/>
+        <HomeFunctionsSection/>
       </Div>
     </Div>
   );

@@ -5,6 +5,7 @@ import {
 import { Button, Div, Icon, Input, Modal, Snackbar, Text } from "react-native-magnus";
 import Toast from "react-native-toast-message";
 import api from "../../services/api";
+import { ActivityIndicator } from "react-native-paper";
 
 interface ICurrentComponentProps {
   numeroConta: string;
@@ -67,7 +68,7 @@ function Current({ numeroConta, idConta, saldo }: ICurrentComponentProps) {
       </Text>
       <Div row alignItems="center">
         <Text color="white" fontSize={22} fontWeight="600" mr={7}>
-          {formatter.format(saldo)}
+          {saldo !== undefined ? formatter.format(saldo) : <ActivityIndicator size={'medium'} color={"#ffffff"} />}
         </Text>
         <TouchableOpacity onPress={openModal}>
           <Icon name="pluscircleo" color="gray300" fontSize={14} />
