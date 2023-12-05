@@ -1,8 +1,11 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import { Div, Icon, Text } from "react-native-magnus";
+import { useNavigation } from "@react-navigation/native";
 
 function HomeFunctionsSection() {
+  const navigation = useNavigation();
+
   return (
     <Div alignItems="center" justifyContent="center" mt={15}>
       <Div w={"90%"} flexDir="row" justifyContent="space-between">
@@ -15,6 +18,7 @@ function HomeFunctionsSection() {
               justifyContent: "center",
               alignItems: "center",
             }}
+            onPress={() => navigation.navigate("NewTransfer")}
           >
             <Icon
               name="bank-transfer"

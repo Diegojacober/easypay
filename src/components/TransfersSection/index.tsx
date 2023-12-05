@@ -18,7 +18,7 @@ function TransfersSection({ transfers }: ITransfersSectionProps) {
 
   return (
     <Div mt={25}>
-        <Text color='white' fontSize={16} fontWeight='700'>Recent activity</Text>
+        <Text color='white' fontSize={16} fontWeight='700' mb={4}>Recent activity</Text>
 
         {(transfers?.length > 0) ? (
                 <>

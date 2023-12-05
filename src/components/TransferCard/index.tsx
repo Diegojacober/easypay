@@ -16,15 +16,15 @@ interface ITransferCard {
 function TransferCard({ transfer }: ITransferCard) {
   // account?.id !== transferencia.to_account_id ? 'sender' : 'receiver'
   return (
-    <Div flexDir="row">
+    <Div flexDir="row" mb={10} alignItems="center">
       <Image
         resizeMode="contain"
-        mt={40}
         h={50}
         w={50}
-        mb={"6xl"}
+        mt={5}
         source={transfer.type == "sender" ? require("../../../assets/sender-img.png") : require("../../../assets/receive-img.png")}
         mr={10}
+        
       />
       <Text color="white">
         {transfer.type == "sender"
