@@ -14,7 +14,6 @@ interface ITransferCard {
 }
 
 function TransferCard({ transfer }: ITransferCard) {
-  // account?.id !== transferencia.to_account_id ? 'sender' : 'receiver'
   return (
     <Div flexDir="row" mb={10} alignItems="center">
       <Image
