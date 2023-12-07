@@ -17,6 +17,8 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import Toast from "react-native-toast-message";
+import api from "../../services/api";
 export default function Profile() {
   const navigation = useNavigation();
 
@@ -45,7 +47,38 @@ export default function Profile() {
 
     if (!result.canceled) {
       setAvatarUrl(result.assets[0].uri);
-      console.log(result.assets[0].uri);
+      let ext = result.assets[0].uri.split("ImagePicker/")[1].split(".")[1]
+      if (ext == "jpeg" || ext == "webp" || ext == "png" || ext == "jpgq") {
+        const formData = new FormData();
+        formData.append('url_image', {
+          uri: result.assets[0].uri,
+          type: 'image/jpeg', // ou 'image/png' dependendo do formato
+          name: 'profile.jpg', // ou 'profile.png'
+        });
+        api.patch("/user/me/", formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }).then((resp) => {
+          Toast.show({
+            type: "success",
+            text1: "Imagem atualizada com sucesso"
+          })
+          setAvatarUrl(result.assets[0].uri);
+          return
+        }).catch(err => {
+          console.log(err.response.data)
+          Toast.show({
+            type: "error",
+            text1: "Erro inesperado"
+          })
+        })
+      } else {
+        Toast.show({
+          type: "error",
+          text1: "Imagem inválida"
+        })
+      }
     }
   };
 

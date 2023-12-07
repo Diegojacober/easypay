@@ -7,7 +7,6 @@ import useAuthStore from "../../stores/useAuthStore";
 import useFetchAccount from "../../components/queries/account";
 import {
   Keyboard,
-  TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
 import Toast from "react-native-toast-message";
@@ -18,7 +17,7 @@ export default function NewTransfer() {
 
   const [account] = useAuthStore((state) => [state.account]);
   const { data } = useFetchAccount(account?.numero);
-  const [value, setValue] = useState<number|null>();
+  const [value, setValue] = useState<number | null>();
   const [toAccount, setToAccount] = useState<string>("");
 
   const formatter = new Intl.NumberFormat("pt-BR", {
@@ -32,7 +31,7 @@ export default function NewTransfer() {
       Toast.show({
         type: 'error',
         text1: 'Dados incorretos',
-    });
+      });
     } else {
       api.post(`/v1/transferencias/`, {
         "to_account_id": toAccount,
@@ -44,14 +43,14 @@ export default function NewTransfer() {
           Toast.show({
             type: 'success',
             text1: 'Transferência efetuada com sucesso',
-        });
+          });
         }
       }).catch((err) => {
         if (err.response.status == 404) {
           Toast.show({
             type: 'error',
             text1: 'Conta não encontrada',
-        });
+          });
         }
       })
     }
