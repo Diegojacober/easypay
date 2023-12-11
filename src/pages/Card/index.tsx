@@ -16,7 +16,6 @@ type CardType = {
 }
 
 export default function Card() {
-  const navigation = useNavigation();
   const [cardData, setCardData] = useState<CardType | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 

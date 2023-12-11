@@ -13,8 +13,6 @@ import Toast from "react-native-toast-message";
 import api from "../../services/api";
 
 export default function NewTransfer() {
-  const navigation = useNavigation();
-
   const [account] = useAuthStore((state) => [state.account]);
   const { data } = useFetchAccount(account?.numero);
   const [value, setValue] = useState<number | null>();
