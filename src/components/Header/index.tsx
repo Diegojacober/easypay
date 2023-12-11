@@ -11,7 +11,6 @@ function Header() {
     const [avatarUrl, setAvatarUrl] = useState<string | null>(
         user && user?.url_image
     );
-    console.log(avatarUrl)
     const handleLogout = () => {
         logout()
     }

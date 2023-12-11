@@ -48,7 +48,7 @@ export default function Profile() {
     if (!result.canceled) {
       setAvatarUrl(result.assets[0].uri);
       let ext = result.assets[0].uri.split("ImagePicker/")[1].split(".")[1]
-      if (ext == "jpeg" || ext == "webp" || ext == "png" || ext == "jpgq") {
+      if (ext == "jpeg" || ext == "webp" || ext == "png" || ext == "jpg") {
         const formData = new FormData();
         formData.append('url_image', {
           uri: result.assets[0].uri,
@@ -67,7 +67,10 @@ export default function Profile() {
           setAvatarUrl(result.assets[0].uri);
           return
         }).catch(err => {
-          console.log(err.response.data)
+          console.log(Object.keys(err))
+          console.log(err.message)
+          console.log(err.request)
+          console.log(err.name)
           Toast.show({
             type: "error",
             text1: "Erro inesperado"
