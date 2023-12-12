@@ -1,5 +1,5 @@
 import { useQuery, QueryFunctionContext } from "@tanstack/react-query";
-import api from "../../../services/api";
+import api from "../../services/api";
 import { Transfer } from "./types";
 
 async function getTransfers(ctx: QueryFunctionContext) {

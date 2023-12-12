@@ -4,10 +4,12 @@ import { Div } from "react-native-magnus";
 import Currency from "../../components/Currency";
 import Header from "../../components/Header";
 import useAuthStore from "../../stores/useAuthStore";
-import useFetchAccount from "../../components/queries/account";
+import useFetchAccount from "../../queries/account";
 import HomeFunctionsSection from "../../components/HomeFunctionsSection";
 import TransfersSection from "../../components/TransfersSection";
-import useFetchTransfers from "../../components/queries/transfers";
+import useFetchTransfers from "../../queries/transfers";
+import EmprestimoSection from "../../components/EmprestimosSections";
+import useFetchLoans from "../../queries/emprestimos";
 
 export default function Home() {
 
@@ -20,7 +22,8 @@ export default function Home() {
   ]);
 
   const { data } = useFetchAccount(account?.numero);
-  const { data: transferData } = useFetchTransfers()
+  const { data: transferData } = useFetchTransfers();
+  const { data: emprestimos } = useFetchLoans();
   useEffect(() => {
     function loadUser() {
       setLoading(true);
@@ -48,9 +51,10 @@ export default function Home() {
     <Div flex={1} pt={50} bg="darkblue" alignItems="center">
       <Div w={"95%"}>
         <Header />
-        <Currency numeroConta={account?.numero} idConta={account?.id} saldo={data?.saldo}/>
-        <HomeFunctionsSection/>
-        <TransfersSection transfers={transferData}/>
+        <Currency numeroConta={account?.numero} idConta={account?.id} saldo={data?.saldo} />
+        <HomeFunctionsSection />
+        <EmprestimoSection emprestimos={emprestimos} />
+        <TransfersSection transfers={transferData} />
       </Div>
     </Div>
   );

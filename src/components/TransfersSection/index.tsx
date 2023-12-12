@@ -1,9 +1,10 @@
 import React from "react";
 import { Div, Text } from "react-native-magnus";
-import { Transfer } from "../queries/transfers/types";
+
 import useAuthStore from "../../stores/useAuthStore";
 import TransferCard from "../TransferCard";
 import { FlatList } from "react-native";
+import { Transfer } from "../../queries/transfers/types";
 
 interface ITransfersSectionProps {
   transfers: Transfer[];

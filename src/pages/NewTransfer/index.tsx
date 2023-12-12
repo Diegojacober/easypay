@@ -4,7 +4,7 @@ import { Button, Div, Input, Text } from "react-native-magnus";
 import Header from "../../components/Header";
 import Currency from "../../components/Currency";
 import useAuthStore from "../../stores/useAuthStore";
-import useFetchAccount from "../../components/queries/account";
+import useFetchAccount from "../../queries/account";
 import {
   Keyboard,
   TouchableWithoutFeedback,
